@@ -25,15 +25,14 @@ function handleIdString(id, req, res) {
     return;
   }
 
-  var stock = response[0];
-  var html = '<div><ul>' +
-              + '<li> Name: ' + response.t + '</li>'
-              + '<li> Market: ' + response.e + '</li>'
-              + '<li> Price: ' + response.el_cur + " " + response.ec + '</li>'
-              + '<li> Time: ' + response.elt + '</li>'
+  var stock = JSON.parse(response.body.substring(4))[0];
+  console.log(stock);
+
+  var html = '<div><ul>'
+              + '<li> Name: ' + stock.t + '</li>'
+              + '<li> Market: ' + stock.e + '</li>'
+              + '<li> Price: ' + stock.el_cur + ' (' + stock.ec + ')</li>'
+              + '<li> Updated at: ' + stock.elt + '</li>'
               + '</ul></div>';
-  res.json({
-    body: html
-    // Add raw:true if you're returning content that you want the user to be able to edit
-  });
+  res.write(html);
 }

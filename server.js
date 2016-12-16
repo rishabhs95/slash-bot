@@ -4,6 +4,8 @@ var app = express();
 var sync = require('synchronize');
 var cors = require('cors');
 
+var port = process.env.PORT || 6520;
+
 // Use fibers in all routes so we can use sync.await() to make async code easier to work with.
 app.use(function(req, res, next) {
   sync.fiber(next);
@@ -19,4 +21,5 @@ var corsOptions = {
 app.get('/typeahead', cors(corsOptions), require('./api/typeahead'));
 app.get('/resolver', cors(corsOptions), require('./api/resolver'));
 
-app.listen(process.env.PORT || 9145);
+app.listen(port);
+console.log('Magic happens on port ' + port);

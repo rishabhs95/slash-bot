@@ -30,16 +30,18 @@ module.exports = function(req, res) {
     return;
   }
 
-  if (response.statusCode !== 200 || !response.body || !response.body.data) {
+  if (response.statusCode !== 200 || !response.body) {
     res.status(500).send('Error');
     return;
   }
 
-  var results = _.chain(response.body.data)
+  var stocks = JSON.parse(response.body).ResultSet.Result;
+
+  var results = _.chain(stocks)
     .map(function(stock) {
       return {
-        title: '<a>' + stock.ResultSet.Result.symbol + stock.ResultSet.Result.exch + stock.ResultSet.Result + '</a>',
-        text: stock.id
+        title: '<a>' + stock.symbol + ' : ' + stock.exch + '</a>',
+        text: stock.symbol
       };
     })
     .value();
