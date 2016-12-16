@@ -34,5 +34,8 @@ function handleIdString(id, req, res) {
               + '<li> Price: ' + stock.el_cur + ' (' + stock.ec + ')</li>'
               + '<li> Updated at: ' + stock.elt + '</li>'
               + '</ul></div>';
-  res.write(html);
+  res.json({
+    body: html
+    // Add raw:true if you're returning content that you want the user to be able to edit
+  });
 }
